@@ -1,0 +1,23 @@
+//TIDY
+DROP ROLE specialAccess IF EXISTS;
+DROP ROLE publicViewer IF EXISTS;
+DROP USER publicUser IF EXISTS;
+DROP USER specialAccessUser IF EXISTS;
+
+//CREATE ROLES
+//PublicViewer
+CREATE ROLE publicViewer IF NOT EXISTS;
+GRANT MATCH {*} ON GRAPH neo4j NODES ResolvedEntity TO publicViewer;
+GRANT MATCH {*} ON GRAPH neo4j FOR (e:Entity) WHERE e.source IS NULL TO publicViewer;
+GRANT MATCH {*} ON GRAPH neo4j RELATIONSHIPS PUBLIC TO publicViewer;
+//OpX
+CREATE ROLE specialAccess IF NOT EXISTS AS COPY OF reader;
+
+//CREATE USERS
+CREATE USER publicUser IF NOT EXISTS
+SET AUTH 'native' {SET PLAINTEXT PASSWORD 'neo4jneo4j' SET PASSWORD CHANGE NOT REQUIRED};
+GRANT ROLE publicViewer TO publicUser;
+
+CREATE USER specialAccessUser IF NOT EXISTS
+SET AUTH 'native' {SET PLAINTEXT PASSWORD 'neo4jneo4j' SET PASSWORD CHANGE NOT REQUIRED};
+GRANT ROLE specialAccess TO specialAccessUser;

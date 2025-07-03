@@ -9,10 +9,10 @@ This uses [LinqPad](https://www.linqpad.net/) to execute, but you should be able
 * Line 25 (in the [`.linq`](CreatingInBatches.linq)) file is where you set the amount of nodes to create and the batch size.
 
 ```
-var batches = GenerateBatches(5000, 10000);
+var batches = GenerateBatches(5000, 100000);
 ```
 
-Will generate `10,000` nodes in batch sizes of `5,000`
+Will generate `100,000` nodes in batch sizes of `5,000`
 
 Just change the numbers to what you want.
 
